@@ -1,15 +1,29 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
-interface ComponentsTravelTyleProps {
-  srcProps: string;
-  altProps: string;
-  textProps: string;
+import { Flex, Text, Image, useBreakpointValue, Icon } from "@chakra-ui/react";
+import { RiCheckboxBlankCircleFill } from "react-icons/ri";
+
+interface TravelTypesItemProps {
+  text: string;
+  image: string;
 }
 
-export function ComponentsTravelTyle({ srcProps, altProps, textProps }: ComponentsTravelTyleProps) {
+export function TravelTypesItem({ text, image }: TravelTypesItemProps) {
+
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true
+  });
+
   return (
-    <Flex direction={["row", "column"]} align="center" justify="center">
-      <Image src={srcProps} alt={altProps} />
-      <Text color='gray.500' fontWeight='bold' fontSize='30'>{textProps}</Text>
+    <Flex
+      direction={isWideVersion ? 'column' : 'row'}
+      alignItems="center"
+      justifyContent="center"
+      padding="4"
+    >
+      {isWideVersion ? <Image src={image} h="85px" w="85px" /> :
+        <Icon as={RiCheckboxBlankCircleFill} color="primary.900" mr="1" />
+      }
+      <Text mt={["0", "2"]} fontWeight="600" fontSize="24px" color="gray.700">{text}</Text>
     </Flex>
-  )
+  );
 }
